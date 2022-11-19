@@ -25,20 +25,20 @@ In a V2 it would be interesting to pay the participation fees in RLC and use the
 
 ### Lottery
 
-Admin : deployer address
-ParticipationFees : 0.001 ether (1000000000000000 wei)
-Number of NFT distributed : 1
+- Admin : deployer address
+- ParticipationFees : 0.001 ether (1000000000000000 wei)
+- Number of NFT distributed : 1
 
 ### NFT Collection
 
-IPFS collecttion : https://ipfs.io/ipfs/QmWmeVJWfpXhr4BcshshHMiqi8nixykwvmJ6mkAjjpt6hg
-Collection name : NFT lottery
-Symbol : NFTL
+- IPFS collecttion : https://ipfs.io/ipfs/QmWmeVJWfpXhr4BcshshHMiqi8nixykwvmJ6mkAjjpt6hg
+- Collection name : NFT lottery
+- Symbol : NFTL
 
 ### Oracle
 
-Oracle address Goerli : 0x36dA71ccAd7A67053f0a4d9D5f55b725C9A25A3E
-Oracle ID : 0xd275c4116f1576d1235bda4b420a4167f57ce041a5b0efdace07ce2cd78c5151
+- Oracle address Goerli : 0x36dA71ccAd7A67053f0a4d9D5f55b725C9A25A3E
+- Oracle ID : 0xd275c4116f1576d1235bda4b420a4167f57ce041a5b0efdace07ce2cd78c5151
 
 # 🏄‍♂️ Quick Start
 
@@ -48,7 +48,7 @@ Oracle ID : 0xd275c4116f1576d1235bda4b420a4167f57ce041a5b0efdace07ce2cd78c5151
 git clone https://github.com/Alexprz03/iexec_dapp.git
 ```
 
-> create your file mnemonic.txt in packages/hardhat and enter your Metamask mnemonic
+create your file mnemonic.txt in packages/hardhat and enter your Metamask mnemonic
 
 > install and start your 👷‍ Hardhat chain fork Goerli:
 
@@ -76,13 +76,15 @@ yarn deploy
 
 # Contract interaction
 
-We have two smart contracts :
+We have three smart contracts :
 
 - The lottery contract :
   This contract is the administrator contract for the NFT collection. It allows to open lotteries and to select a participant to win an nft
 
 - The NFT contract :
   It is an NFT contract based on the ERC721 standard of openzepplin. The metadatas are first stored on ipfs and then the ipfs uri is stored in the contract.
+
+- The Oracle contract : The random Oracle Factory oracle that will communicate with The iExec Oracle Factory to update and get the random value
 
 # Process to cover all the use case in frontend when deployed
 
