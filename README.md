@@ -76,13 +76,15 @@ yarn deploy
 
 # Contract interaction
 
-We have two smart contracts :
+We have three smart contracts :
 
 - The lottery contract :
   This contract is the administrator contract for the NFT collection. It allows to open lotteries and to select a participant to win an nft
 
 - The NFT contract :
   It is an NFT contract based on the ERC721 standard of openzepplin. The metadatas are first stored on ipfs and then the ipfs uri is stored in the contract.
+
+- The Oracle contract : The random Oracle Factory oracle that will communicate with The iExec Oracle Factory to update and get the random value
 
 # Process to cover all the use case in frontend when deployed
 
