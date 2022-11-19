@@ -7,9 +7,16 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
+  await deploy("SimpleOracleStorage", {
+    from: deployer,
+    log: true,
+    waitConfirmations: 5,
+  });
+
+  const Oracle = await ethers.getContract("SimpleOracleStorage");
+
   await deploy("NFTCollection", {
     from: deployer,
-    //args: ["Hello", ethers.utils.parseEther("1.5")],
     log: true,
     waitConfirmations: 5,
   });
@@ -18,12 +25,13 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   await deploy("Lottery", {
     from: deployer,
-    args: [Collection.address],
+    args: [Collection.address, Oracle.address],
     log: true,
     waitConfirmations: 5,
   });
 
   const Lottery = await ethers.getContract("Lottery");
+
   const minterRole = await Collection.MINTER_ROLE();
   console.log(Lottery.address);
   await Collection.grantRole(minterRole, Lottery.address);

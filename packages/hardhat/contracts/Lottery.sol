@@ -3,7 +3,12 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 interface IERC721 {
-    function safeMint(address to, uint256 tokenId) external;
+  function safeMint(address to, uint256 tokenId) external;
+}
+
+interface iSimpleOracleStorage {
+  function getOracleData() external;
+  function get() external view returns (int256, uint256);
 }
 
 contract Lottery {
@@ -16,14 +21,16 @@ contract Lottery {
   uint256 public nbNFT;
 
   IERC721 collection;
+  iSimpleOracleStorage randomOracle;
 
   event Winner(address indexed _address, uint256 indexed _tokenId, uint256 _timestamp);
 
-  constructor(address _collectionAddress){
+  constructor(address _collectionAddress, address _randomOracle){
     collection = IERC721(_collectionAddress);
     admin = msg.sender;
     participationFees = 0.001 ether;
-    nbNFT = 2;
+    nbNFT = 1;
+    randomOracle = iSimpleOracleStorage(_randomOracle);
   }
   
   modifier onlyAdmin(){
@@ -72,7 +79,10 @@ contract Lottery {
       players.push(msg.sender);
   }
 
-  function _randomNumber() private view returns (uint256) {
-     return uint(keccak256(abi.encodePacked(admin, block.timestamp)));
+  function _randomNumber() private returns (uint256) {
+    randomOracle.getOracleData();
+    (int256 getRandom, uint256 date) = randomOracle.get();
+    uint randomNumber = uint(keccak256(abi.encodePacked(getRandom,date)));
+    return randomNumber;
   }
 }

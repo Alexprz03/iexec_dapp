@@ -17,6 +17,10 @@ describe("Lottery", function () {
     const Lottery = await ethers.getContractFactory("Lottery");
     lottery = await Lottery.deploy(NFTContract.address);
     await lottery.deployed();
+
+    const Oracle = await ethers.getContractFactory("SimpleOracleStorage");
+    oracle = await Oracle.deploy();
+    await oracle.deployed();
   });
 
   describe("Start function", function () {
