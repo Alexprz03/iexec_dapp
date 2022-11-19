@@ -35,6 +35,6 @@ contract NFTCollection is ERC721, AccessControl  {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, Strings.toString(tokenId),"/.json")) : "";
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, "/", Strings.toString(tokenId),".json")) : "";
     }
 }
