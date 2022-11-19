@@ -71,6 +71,7 @@ contract Lottery {
       collection.safeMint(players[index], i);
       emit Winner(players[index], i, block.timestamp);    
     }
+    players = new address[](0);
   }
 
   function enter() public payable{
@@ -82,7 +83,7 @@ contract Lottery {
   function _randomNumber() private returns (uint256) {
     randomOracle.getOracleData();
     (int256 getRandom, uint256 date) = randomOracle.get();
-    uint randomNumber = uint(keccak256(abi.encodePacked(getRandom,date)));
+    uint randomNumber = uint(keccak256(abi.encodePacked(getRandom,date, block.timestamp)));
     return randomNumber;
   }
 }

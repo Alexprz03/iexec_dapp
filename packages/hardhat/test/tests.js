@@ -10,17 +10,17 @@ describe("Lottery", function () {
   before(async function () {
     accounts = await ethers.getSigners();
 
+    const Oracle = await ethers.getContractFactory("TestOracleStorage");
+    oracle = await Oracle.deploy();
+    await oracle.deployed();
+
     const NFTCollection = await ethers.getContractFactory("NFTCollection");
     NFTContract = await NFTCollection.deploy();
     await NFTContract.deployed();
 
     const Lottery = await ethers.getContractFactory("Lottery");
-    lottery = await Lottery.deploy(NFTContract.address);
+    lottery = await Lottery.deploy(NFTContract.address, oracle.address);
     await lottery.deployed();
-
-    const Oracle = await ethers.getContractFactory("SimpleOracleStorage");
-    oracle = await Oracle.deploy();
-    await oracle.deployed();
   });
 
   describe("Start function", function () {
