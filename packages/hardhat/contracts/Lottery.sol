@@ -54,6 +54,7 @@ contract Lottery {
     require(state == STATE.CLOSED, "the lottery is already open");
     collection = IERC721(_newCollection);
     nbNFT = _newNbNFT;
+    players = new address[](0);
   }
 
   function start() public onlyAdmin{
@@ -71,7 +72,6 @@ contract Lottery {
       collection.safeMint(players[index], i);
       emit Winner(players[index], i, block.timestamp);    
     }
-    players = new address[](0);
   }
 
   function enter() public payable{
